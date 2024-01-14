@@ -19,7 +19,7 @@ namespace pine
         this->logBuffer = std::make_shared<Buffer>(Buffer());
 
         return;
-    };
+    };;
 
     Piner::~Piner()
     {
