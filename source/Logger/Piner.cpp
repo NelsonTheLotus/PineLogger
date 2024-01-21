@@ -14,12 +14,11 @@ namespace pine
     Piner::Piner(std::string name, log_type pinerType, log_level pinerLevel)
     : name(name), logType(pinerType), logLevel(pinerLevel)
     {
-        this->name = "Pine logger";
         this->logFrame = std::make_shared<Frame>(Frame());
         this->logBuffer = std::make_shared<Buffer>(Buffer());
 
         return;
-    };;
+    };
 
     Piner::~Piner()
     {

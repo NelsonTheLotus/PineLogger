@@ -10,8 +10,15 @@
 namespace pine
 {   
     //PINE_CORE
+    typedef struct TokenUnit
+    {
+        std::string tokenName;
+        std::string (*toStringFunc)(LogContext);
+    }TokenUnit;
+
     typedef struct ReplaceUnit
     {
+        int tokenLength;
         std::string::size_type replacePos;
         std::string (*tokenToString)(LogContext);
     }ReplaceUnit;
@@ -35,11 +42,10 @@ namespace pine
         std::vector<ReplaceUnit> replaceUnits;
 
     public:
-        /* Frame(std::string skeleton = "[level]: [type] -> [text]"); */
-        Frame(std::string skeleton = "[type] - [level]: [text]");
+        Frame(std::string skeleton = "[name] | [type] - [level]: [text] at level: [level].");
         ~Frame();
-        temp_stat_int setSkeleton(std::string newSkel);
 
+        temp_stat_int setSkeleton(std::string newSkel);
         std::string generateMessage(std::string text, LogContext textCtx);
     };
 }

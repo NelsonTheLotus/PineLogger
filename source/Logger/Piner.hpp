@@ -24,9 +24,9 @@ namespace pine
     {
     private:
         //LogContext vars
+        std::string name;
         log_type logType;
         log_level logLevel;
-        std::string name;
 
         //LogPath vars
         std::shared_ptr<Frame> logFrame;

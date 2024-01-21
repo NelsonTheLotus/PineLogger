@@ -3,13 +3,14 @@
 
 #include <string>
 #include <array>
+#include <algorithm>
+#include <vector>
 //TEMPO
 #include <iostream>
 
 namespace pine
 {
-    std::array<std::string, 4> replaceableUnitNames = {"type", "level", "name", "text"};
-
+    
     std::string getTypeString(LogContext textCtx)
     {
         std::string typeString = "Uknown";
@@ -52,6 +53,11 @@ namespace pine
         return textCtx.sourceName;
     }
 
+    TokenUnit nameToken = {"name", getNameString};
+    TokenUnit typeToken = {"type", getTypeString};
+    TokenUnit levelToken = {"level", getLevelString};
+    TokenUnit textToken = {"text", nullptr};
+    std::array<TokenUnit, 4> unitTokens = {nameToken, typeToken, levelToken, textToken};
 
     Frame::Frame(std::string skeleton)
     {
@@ -64,48 +70,47 @@ namespace pine
         return;
     }
 
+
     temp_stat_int Frame::setSkeleton(std::string newSkel)
     {
-        int tokenNameIndex = 0;
-        for(auto tokenString : replaceableUnitNames)
+        //Index all units to replace
+        this->replaceUnits.clear();
+        for(auto token : unitTokens)
         {
-            //TODO: OPTIMZE
-            std::string unitString = char(format_chars::openFormat) + tokenString + char(format_chars::closeFormat);
+            std::string unitString = char(format_chars::openFormat) + token.tokenName + char(format_chars::closeFormat);
+            int tokenLength = unitString.length();
             std::string::size_type searchStartPos = 0;
             std::string::size_type nextUnitPos = newSkel.find(unitString, searchStartPos);
+           
             while(std::string::npos != nextUnitPos)
             {
-                //check for escape char
+                //Check for no escape char
                 int escapeFormat = nextUnitPos-1;
-                if(0 <= escapeFormat) 
+                if((0 > escapeFormat) || (format_chars::escapeFormat != newSkel[escapeFormat]))
                 {
-                    if(newSkel[escapeFormat] == format_chars::escapeFormat) 
-                    {
-                        searchStartPos = nextUnitPos + unitString.length();
-                        nextUnitPos = newSkel.find(unitString, searchStartPos);
-                        continue;
-                    }
+                    //set a unit index
+                    ReplaceUnit newUnitIndex = {tokenLength, nextUnitPos, token.toStringFunc};
+                    this->replaceUnits.push_back(newUnitIndex);
                 }
 
-                    //no match found
-                std::string (*tokenToString)(LogContext);
-                switch (tokenNameIndex)
-                {
-                    case 0: tokenToString = getTypeString; break;
-                    case 1: tokenToString = getLevelString; break;
-                    case 2: tokenToString = getNameString; break;
-                    case 3:
-                    default: tokenToString = nullptr; break;
-                }
-
-                newSkel.erase(nextUnitPos, unitString.length());
-                ReplaceUnit newReplaceUnit = {nextUnitPos, tokenToString};
-                this->replaceUnits.push_back(newReplaceUnit);
-
+                searchStartPos = nextUnitPos + unitString.length();
                 nextUnitPos = newSkel.find(unitString, searchStartPos);
             }
-            tokenNameIndex++;
         }
+
+        //sort so that generation can replace in order of appearance
+        std::sort(this->replaceUnits.begin(), this->replaceUnits.end(), [](ReplaceUnit &unitA, ReplaceUnit &unitB){return unitA.replacePos<unitB.replacePos;});
+        int replacePosOffset = 0;
+
+        //erase the tokens inside the skeleton and update the replace position
+        for(auto &unit : this->replaceUnits)
+        {
+            unit.replacePos += replacePosOffset;
+            newSkel.erase(unit.replacePos, unit.tokenLength);
+            replacePosOffset -= unit.tokenLength;
+            unit.tokenLength = 0;
+        }
+
         this->skeleton = newSkel;
         return 0;
     }
@@ -122,7 +127,7 @@ namespace pine
             {
                 replaceText = replaceUnit.tokenToString(textCtx);
             }
-
+            
             newMessage.insert(replaceUnit.replacePos + replaceOffset, replaceText);
             replaceOffset += replaceText.length();
         }
