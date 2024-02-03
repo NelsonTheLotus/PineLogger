@@ -1,4 +1,5 @@
 # Pine Logger
+A dynamic, fast and flexible logging library for C++.
 
 ## Project Structure
 

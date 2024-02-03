@@ -8,6 +8,8 @@ int main()
 {
     pine::Piner newLoggerDebug = pine::Piner("newLogger");
     newLoggerDebug.log("Test Message.");
+    newLoggerDebug.log("Test Message.");
+    newLoggerDebug.log("Test Message.");
 
 
     /* newLoggerDebug.backlog("testmessage");

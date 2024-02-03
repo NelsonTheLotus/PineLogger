@@ -42,7 +42,7 @@ namespace pine
         std::vector<ReplaceUnit> replaceUnits;
 
     public:
-        Frame(std::string skeleton = "[name] | [type] - [level]: [text] at level: [level].");
+        Frame(std::string skeleton = "[name] | [type] - [level]: [text]");
         ~Frame();
 
         temp_stat_int setSkeleton(std::string newSkel);
