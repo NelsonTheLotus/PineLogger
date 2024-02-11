@@ -9,7 +9,7 @@
 
 namespace pine
 {   
-    //PINE_CORE
+//  PINE_CORE
     typedef struct TokenUnit
     {
         std::string tokenName;
@@ -35,6 +35,7 @@ namespace pine
     std::string getLevelString(LogContext textCtx);
     std::string getNameString(LogContext textCtx);
 
+//  PINE_EXTERNAL
     class Frame
     {
     private:
