@@ -11,7 +11,7 @@ int main()
     newLoggerDebug.log("Test Message.");
     newLoggerDebug.log("Test Message.");
 
-    //DONE: Add name selection for the Piner (logger)
-    //TODO: add log output selection
+    //DONE: add log output selection
+    //TODO: add ostream selection for Buffer through PineLogger
     return 0;
 }

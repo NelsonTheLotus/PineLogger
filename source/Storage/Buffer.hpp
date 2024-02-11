@@ -10,9 +10,10 @@ namespace pine
     class Buffer
     {
     private:
+        std::ostream *ouputSource;
 
     public:
-        Buffer();
+        Buffer(std::ostream *output);
         ~Buffer();
 
         static int immediateLog(std::string message, std::ostream& outputStream);

@@ -2,7 +2,8 @@
 #include "Piner.hpp"
 
 //TEMPORARY FOR DEBUG
-// -
+# include <iostream>
+
 #include <string>
 
 #include "LogAsset.hpp"
@@ -15,7 +16,7 @@ namespace pine
     : name(name), logType(pinerType), logLevel(pinerLevel)
     {
         this->logFrame = std::make_shared<Frame>(Frame());
-        this->logBuffer = std::make_shared<Buffer>(Buffer());
+        this->logBuffer = std::make_shared<Buffer>(Buffer(&std::cout));
 
         return;
     };

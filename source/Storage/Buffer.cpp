@@ -6,7 +6,8 @@
 
 namespace pine
 {
-    Buffer::Buffer()
+    Buffer::Buffer(std::ostream *output)
+    : ouputSource(output)
     {
         return;
     }

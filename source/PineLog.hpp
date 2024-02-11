@@ -16,7 +16,6 @@
 #include "Schedule/Timer.hpp"
 
 #include "Storage/Buffer.hpp"
-#include "Storage/Stream.hpp"
 
 
 //User accesible functions

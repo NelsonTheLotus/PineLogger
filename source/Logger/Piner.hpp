@@ -8,8 +8,6 @@
 #include "../Pine/Settings.hpp"
 #include "../Pine/Types.hpp"
 
-#include "../Storage/Stream.hpp"
-
 #include "../Render/Frame.hpp"
 
 #include "../Storage/Buffer.hpp"
@@ -31,7 +29,6 @@ namespace pine
         //LogPath vars
         std::shared_ptr<Frame> logFrame;
         std::shared_ptr<Buffer> logBuffer;
-        //TOADD: std::shared_ptr<Stream> logStream;
     
     public:
         Piner(std::string name, log_type pinerType = log_type::debug, log_level pinerLevel = log_level::info);
