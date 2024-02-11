@@ -39,8 +39,7 @@ Schedule is reponsible for all time-management functionnalities:
 
 ### Storage
 Storage will keep track of the logs and dispatch where necessary:
- - Buffer: Will store the logs until the user decides to flush them.
- - Stream: Is the object responsible for determining the destination of the log.
+ - Buffer: Will store the logs until the user decides to flush them. Also contains the output ostream
 
 
 ## Naming conventions
