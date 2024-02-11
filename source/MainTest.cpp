@@ -6,17 +6,12 @@
 
 int main()
 {
-    pine::Piner newLoggerDebug = pine::Piner("newLogger");
+    pine::Piner newLoggerDebug = pine::Piner("hiItsAMeMario");
     newLoggerDebug.log("Test Message.");
     newLoggerDebug.log("Test Message.");
     newLoggerDebug.log("Test Message.");
 
-
-    /* newLoggerDebug.backlog("testmessage");
-
-    newLoggerDebug << "test message"; */
-
-    //DONE: Added frame message generation
-    //TODO: Add name selection for the Piner (logger)
+    //DONE: Add name selection for the Piner (logger)
+    //TODO: add log output selection
     return 0;
 }

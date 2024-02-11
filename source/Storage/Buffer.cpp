@@ -16,7 +16,7 @@ namespace pine
         return;
     }
 
-    int Buffer::immediateLog(std::string message, std::ostream& outputStream)
+    temp_stat_int Buffer::immediateLog(std::string message, std::ostream& outputStream)
     {
         outputStream << message << std::endl;
         return 0;
